@@ -63,10 +63,10 @@ public class Programa {
 			
 			System.out.println("\nProdutos disponiveis para compra: ");
 			for(Produto produtos : listaProduto) {
-				System.out.println("--------------------------------------------------------------");
+				System.out.println("----------------------------------------------------------------------------");
 				System.out.println("Fornecedor: "+fornecedor.getRazaoSocial()+" - CNPJ "+ fornecedor.getCnpj()+" - TEL "+fornecedor.getTelefone());
 				System.out.println(produtos);
-				System.out.println("--------------------------------------------------------------");
+				System.out.println("----------------------------------------------------------------------------");
 			}
 			
 			System.out.print("\nDigite a ID do produto que voce deseja comprar: ");
@@ -81,14 +81,16 @@ public class Programa {
 				}
 				else {
 				System.out.println("\nVoce comprou "+quantidadeCompra+" unidades do produto "+buscaNome.getNome()+"!");
-				System.out.println("\n************************************");
+				System.out.println("\n***************************************");
 				System.out.println("Lista de compra: ");
 				System.out.println(buscaNome.getNome()+", "+quantidadeCompra+" unidades, total: "+buscaNome.valorTotal(quantidadeCompra));
-				System.out.println("************************************");
+				System.out.println("---------------------------------------");
+				System.out.println("Cliente: "+cliente.getNome()+", CPF Num. "+cliente.getCpf());
+				System.out.println("***************************************");
 				}
 			}
 			else if(buscaNome == null) {
-				System.out.println("Nome de produto invalido, nao existem produtos com esse nome.");
+				System.out.println("ID invalido, esse ID nao esta associado a um produto.");
 			}
 		} 
 		catch(RuntimeException e) {
