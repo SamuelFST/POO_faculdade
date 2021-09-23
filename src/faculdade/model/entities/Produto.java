@@ -4,14 +4,24 @@ public class Produto {
 	private String nome;
 	private Double preco;
 	private int quantidade;
+	private int idProduto;
 	
 	public Produto() {
 	}
 
-	public Produto(String nome, Double preco, int quantidade) {
+	public Produto(int idProduto, String nome, Double preco, int quantidade) {
 		this.nome = nome;
 		this.preco = preco;
 		this.quantidade = quantidade;
+		this.idProduto = idProduto;
+	}
+
+	public int getIdProduto() {
+		return idProduto;
+	}
+
+	public void setIdProduto(int idProduto) {
+		this.idProduto = idProduto;
 	}
 
 	public String getNome() {
@@ -44,7 +54,7 @@ public class Produto {
 
 	@Override
 	public String toString() {
-		return "Produto: " + nome + ", preco: " + preco + ", quantidade em estoque: " + quantidade;
+		return "Produto: " + nome +", ID do produto: "+idProduto +", preco: " + preco + ", quantidade em estoque: " + quantidade;
 	}
 	
 }

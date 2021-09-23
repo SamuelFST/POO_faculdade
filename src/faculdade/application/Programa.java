@@ -36,13 +36,16 @@ public class Programa {
 			for (int i = 1; i <= quantidadeCadastros; i++) {
 				System.out.println("\nDados do produto #" + i);
 				sc.nextLine();
+				System.out.print("Digite qual sera o id numerico do produto: ");
+				int idProduto = sc.nextInt();
+				sc.nextLine();
 				System.out.print("Nome do produto: ");
 				String nomeProduto = sc.nextLine().toUpperCase();
 				System.out.print("Preco do produto: ");
 				Double preco = sc.nextDouble();
 				System.out.print("Quantidade disponivel: ");
 				int quantidade = sc.nextInt();
-				Produto produto = new Produto(nomeProduto, preco, quantidade);
+				Produto produto = new Produto(idProduto, nomeProduto, preco, quantidade);
 				listaProduto.add(produto);
 			}
 			
@@ -66,9 +69,9 @@ public class Programa {
 				System.out.println("--------------------------------------------------------------");
 			}
 			
-			System.out.print("\nDigite o nome do produto que voce deseja comprar: ");
-			String procuraNome= sc.nextLine().toUpperCase();
-			System.out.print("Digite a quantidade: ");
+			System.out.print("\nDigite a ID do produto que voce deseja comprar: ");
+			int procuraNome= sc.nextInt();
+			System.out.print("Digite a quantidade de unidades para comprar: ");
 			int quantidadeCompra= sc.nextInt();
 			Produto buscaNome = buscaProduto(listaProduto, procuraNome);
 			
@@ -94,9 +97,9 @@ public class Programa {
 		sc.close();
 	}
 	
-	public static Produto buscaProduto(List<Produto> listaProduto, String procuraNome) {
+	public static Produto buscaProduto(List<Produto> listaProduto, int procuraNome) {
 		for(Produto produto : listaProduto) {
-			if(procuraNome.equals(produto.getNome())) {
+			if(procuraNome == produto.getIdProduto()) {
 				return produto;
 			}
 		}
