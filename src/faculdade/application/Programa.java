@@ -2,9 +2,7 @@ package faculdade.application;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -18,7 +16,7 @@ public class Programa {
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		List<Produto> listaProduto = new ArrayList<>();
+		Produto produto = new Produto();
 		
 		try {
 			System.out.println("Dados do fornecedor");
@@ -45,8 +43,8 @@ public class Programa {
 				Double preco = sc.nextDouble();
 				System.out.print("Quantidade disponivel: ");
 				int quantidade = sc.nextInt();
-				Produto produto = new Produto(idProduto, nomeProduto, preco, quantidade);
-				listaProduto.add(produto);
+				Produto prod = new Produto(idProduto, nomeProduto, preco, quantidade);
+				produto.adicionarProduto(prod);
 			}
 			
 			System.out.println("\n*** Produtos cadastrados ***");
@@ -62,7 +60,7 @@ public class Programa {
 			Cliente cliente = new Cliente(nome, cpf, dataNascimento);
 			
 			System.out.println("\nProdutos disponiveis para compra: ");
-			for(Produto produtos : listaProduto) {
+			for(Produto produtos : produto.getListaProduto()) {
 				System.out.println("----------------------------------------------------------------------------");
 				System.out.println("Fornecedor: "+fornecedor.getRazaoSocial()+" - CNPJ "+ fornecedor.getCnpj()+" - TEL "+fornecedor.getTelefone());
 				System.out.println(produtos);
@@ -70,26 +68,26 @@ public class Programa {
 			}
 			
 			System.out.print("\nDigite a ID do produto que voce deseja comprar: ");
-			int procuraNome= sc.nextInt();
+			int procuraID= sc.nextInt();
 			System.out.print("Digite a quantidade de unidades para comprar: ");
 			int quantidadeCompra= sc.nextInt();
-			Produto buscaNome = buscaProduto(listaProduto, procuraNome);
+			Produto buscaID = Produto.buscaProduto(produto.getListaProduto(), procuraID);
 			
-			if(buscaNome != null) {
-				if(quantidadeCompra > buscaNome.getQuantidade()) {
+			if(buscaID != null) {
+				if(quantidadeCompra > buscaID.getQuantidade()) {
 					System.out.println("Quantidade acima do disponivel para compra, digite um valor menor.");
 				}
 				else {
-				System.out.println("\nVoce comprou "+quantidadeCompra+" unidades do produto "+buscaNome.getNome()+"!");
+				System.out.println("\nVoce comprou "+quantidadeCompra+" unidades do produto "+buscaID.getNome()+"!");
 				System.out.println("\n***************************************");
 				System.out.println("Lista de compra: ");
-				System.out.println(buscaNome.getNome()+", "+quantidadeCompra+" unidades, total: "+buscaNome.valorTotal(quantidadeCompra));
+				System.out.println(buscaID.getNome()+", "+quantidadeCompra+" unidades, total: "+buscaID.valorTotal(quantidadeCompra));
 				System.out.println("---------------------------------------");
 				System.out.println("Cliente: "+cliente.getNome()+", CPF Num. "+cliente.getCpf());
 				System.out.println("***************************************");
 				}
 			}
-			else if(buscaNome == null) {
+			else if(buscaID == null) {
 				System.out.println("ID invalido, esse ID nao esta associado a um produto.");
 			}
 		} 
@@ -99,12 +97,12 @@ public class Programa {
 		sc.close();
 	}
 	
-	public static Produto buscaProduto(List<Produto> listaProduto, int procuraNome) {
+	/*public static Produto buscaProduto(List<Produto> listaProduto, int procuraNome) {
 		for(Produto produto : listaProduto) {
 			if(procuraNome == produto.getIdProduto()) {
 				return produto;
 			}
 		}
 		return null;
-	}
+	}*/
 }

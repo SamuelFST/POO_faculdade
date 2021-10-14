@@ -1,10 +1,14 @@
 package faculdade.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Produto {
 	private String nome;
 	private Double preco;
 	private int quantidade;
 	private int idProduto;
+	List<Produto> listaProduto = new ArrayList<>();
 	
 	public Produto() {
 	}
@@ -48,6 +52,10 @@ public class Produto {
 		this.quantidade = quantidade;
 	}
 	
+	public List<Produto> getListaProduto() {
+		return listaProduto;
+	}
+
 	public double valorTotal(int quantidade) {
 		return preco * quantidade;
 	}
@@ -55,6 +63,19 @@ public class Produto {
 	@Override
 	public String toString() {
 		return "Produto: " + nome +", ID do produto: "+idProduto +", preco: " + preco + ", quantidade em estoque: " + quantidade;
+	}
+	
+	public void adicionarProduto(Produto produto) {
+		listaProduto.add(produto);
+	}
+	
+	public static Produto buscaProduto(List<Produto> listaProduto, int procuraID) {
+		for(Produto produto : listaProduto) {
+			if(procuraID == produto.getIdProduto()) {
+				return produto;
+			}
+		}
+		return null;
 	}
 	
 }
