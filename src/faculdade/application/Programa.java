@@ -33,7 +33,9 @@ public class Programa {
 	}
 
 	public static void menu(Scanner sc, Produto produto, Fornecedor fornecedor) throws ParseException {
+		int gerarID = 1;
 		int opcao = 0;
+		
 		while (opcao != 3) {
 			System.out.println("\nDigite a opcao que deseja: ");
 			System.out.println("1 - Cadastrar fornecedor e seus produtos");
@@ -57,21 +59,20 @@ public class Programa {
 
 				System.out.print("\nDigite a quantidade de produtos a serem cadastrados: ");
 				int quantidadeCadastros = sc.nextInt();
-
+				
 				for (int i = 1; i <= quantidadeCadastros; i++) {
 					System.out.println("\nDados do produto #" + i);
 					sc.nextLine();
-					System.out.print("Digite qual sera o id numerico do produto: ");
-					int idProduto = sc.nextInt();
-					sc.nextLine();
+					System.out.println("ID numerico do produto: "+gerarID);
 					System.out.print("Nome do produto: ");
 					String nomeProduto = sc.nextLine().toUpperCase();
 					System.out.print("Preco do produto: ");
 					Double preco = sc.nextDouble();
 					System.out.print("Quantidade disponivel: ");
 					int quantidade = sc.nextInt();
-					Produto prod = new Produto(idProduto, nomeProduto, preco, quantidade);
+					Produto prod = new Produto(gerarID, nomeProduto, preco, quantidade);
 					produto.adicionarProduto(prod);
+					gerarID ++;
 				}
 				System.out.println("\n*** Produtos cadastrados ***");
 				System.out.println();
@@ -117,6 +118,7 @@ public class Programa {
 						System.out.println("Compra realizada em: " + sdf2.format(new Date()));
 						System.out.println("Cliente: " + cliente.getNome() + ", CPF Num. " + cliente.getCpf());
 						System.out.println("***************************************");
+						produto.atualizarEstoque(buscaID, quantidadeCompra);
 					}
 				} else if (buscaID == null) {
 					System.out.println("ID invalido, esse ID nao esta associado a um produto.");

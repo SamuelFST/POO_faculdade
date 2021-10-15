@@ -60,9 +60,13 @@ public class Produto {
 		return preco * quantidade;
 	}
 
-	@Override
-	public String toString() {
-		return "Produto: " + nome +", ID do produto: "+idProduto +", preco: " + preco + ", quantidade em estoque: " + quantidade;
+	public void atualizarEstoque(Produto produto, int quantidade) {
+		if(produto.quantidade > 0) {
+			produto.quantidade = produto.quantidade - quantidade;
+		}
+		if(produto.quantidade == 0) {
+			listaProduto.remove(produto);
+		}
 	}
 	
 	public void adicionarProduto(Produto produto) {
@@ -78,4 +82,8 @@ public class Produto {
 		return null;
 	}
 	
+	@Override
+	public String toString() {
+		return "Produto: " + nome +", ID do produto: "+idProduto +", preco: " + preco + ", quantidade em estoque: " + quantidade;
+	}
 }
