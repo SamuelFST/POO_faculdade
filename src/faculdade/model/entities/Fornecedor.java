@@ -5,6 +5,9 @@ public final class Fornecedor {
 	private String cnpj;
 	private String telefone;
 	
+	public Fornecedor() {
+	}
+	
 	public Fornecedor(String razaoSocial, String cnpj, String telefone) {
 		this.razaoSocial = razaoSocial;
 		this.cnpj = cnpj;
