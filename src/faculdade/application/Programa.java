@@ -70,9 +70,9 @@ public class Programa {
 					Double preco = sc.nextDouble();
 					System.out.print("Quantidade disponivel: ");
 					int quantidade = sc.nextInt();
-					Produto prod = new Produto(gerarID, nomeProduto, preco, quantidade);
+					Produto prod = new Produto(fornecedor, gerarID, nomeProduto, preco, quantidade);
 					produto.adicionarProduto(prod);
-					gerarID ++;
+					gerarID++;
 				}
 				System.out.println("\n*** Produtos cadastrados ***");
 				System.out.println();
@@ -92,8 +92,8 @@ public class Programa {
 				System.out.println("\nProdutos disponiveis para compra: ");
 				for (Produto produtos : produto.getListaProduto()) {
 					System.out.println("----------------------------------------------------------------------------");
-					System.out.println("Fornecedor: " + fornecedor.getRazaoSocial() + " - CNPJ " + fornecedor.getCnpj()
-							+ " - TEL " + fornecedor.getTelefone());
+					System.out.println("Fornecedor: " + produtos.getFornecedor().getRazaoSocial() + " - CNPJ " + produtos.getFornecedor().getCnpj()
+							+ " - TEL " + produtos.getFornecedor().getTelefone());
 					System.out.println(produtos);
 					System.out.println("----------------------------------------------------------------------------");
 				}

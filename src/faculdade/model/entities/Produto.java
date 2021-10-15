@@ -8,16 +8,18 @@ public class Produto {
 	private Double preco;
 	private int quantidade;
 	private int idProduto;
+	private Fornecedor fornecedor;
 	List<Produto> listaProduto = new ArrayList<>();
 	
 	public Produto() {
 	}
 
-	public Produto(int idProduto, String nome, Double preco, int quantidade) {
+	public Produto(Fornecedor fornecedor, int idProduto, String nome, Double preco, int quantidade) {
 		this.nome = nome;
 		this.preco = preco;
 		this.quantidade = quantidade;
 		this.idProduto = idProduto;
+		this.fornecedor = fornecedor;
 	}
 
 	public int getIdProduto() {
@@ -52,6 +54,14 @@ public class Produto {
 		this.quantidade = quantidade;
 	}
 	
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
 	public List<Produto> getListaProduto() {
 		return listaProduto;
 	}
