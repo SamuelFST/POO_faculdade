@@ -1,9 +1,9 @@
 package faculdade.model.services;
 
-public final class PaypalService implements PagamentoService {
-	
-	private static final double valorTaxa = 20.0;
-	private static final double porcentagemCashback = 0.05;
+public class GooglepayService implements PagamentoService {
+
+	private static final double valorTaxa = 70.0;
+	private static final double porcentagemCashback = 0.09;
 	
 	@Override
 	public Double taxaPagamento(Double quantia) {
@@ -14,5 +14,4 @@ public final class PaypalService implements PagamentoService {
 	public Double calcularCashback(Double quantia) {
 		return quantia * porcentagemCashback;
 	}
-	
 }
