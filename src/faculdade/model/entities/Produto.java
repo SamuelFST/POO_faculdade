@@ -9,17 +9,19 @@ public class Produto {
 	private int quantidade;
 	private int idProduto;
 	private Fornecedor fornecedor;
+	private Funcionario funcionario;
 	List<Produto> listaProduto = new ArrayList<>();
 	
 	public Produto() {
 	}
 
-	public Produto(Fornecedor fornecedor, int idProduto, String nome, Double preco, int quantidade) {
+	public Produto(Fornecedor fornecedor, Funcionario funcionario, int idProduto, String nome, Double preco, int quantidade) {
 		this.nome = nome;
 		this.preco = preco;
 		this.quantidade = quantidade;
 		this.idProduto = idProduto;
 		this.fornecedor = fornecedor;
+		this.funcionario = funcionario;
 	}
 
 	public int getIdProduto() {
@@ -60,6 +62,14 @@ public class Produto {
 
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
 	public List<Produto> getListaProduto() {
