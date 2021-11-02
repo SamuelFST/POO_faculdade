@@ -2,26 +2,14 @@ package faculdade.model.entities;
 
 import java.util.Date;
 
-public final class Cliente {
-	private String nome;
+public final class Cliente extends Pessoa {
 	private String cpf;
 	private Date dataNascimento;
 	
-	public Cliente() {
-	}
-
 	public Cliente(String nome, String cpf, Date dataNascimento) {
-		this.nome = nome;
+		super(nome);
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public String getCpf() {
