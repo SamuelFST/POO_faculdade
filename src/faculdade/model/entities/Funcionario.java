@@ -1,21 +1,21 @@
 package faculdade.model.entities;
 
 public final class Funcionario extends Pessoa {
-	private Double ganhos;
+	private Double ganhoPorProduto;
 
 	public Funcionario () {
 	}
 	
-	public Funcionario(String nome, Double ganhos) {
+	public Funcionario(String nome, Double ganhoPorProduto) {
 		super(nome);
-		this.ganhos = ganhos;
+		this.ganhoPorProduto = ganhoPorProduto;
 	}
 
-	public Double getGanhos() {
-		return ganhos;
+	public Double getGanhoPorProduto() {
+		return ganhoPorProduto;
 	}
 
-	public void setGanhos(Double ganhos) {
-		this.ganhos = ganhos;
+	public void setGanhoPorProduto(Double ganhoPorProduto) {
+		this.ganhoPorProduto = ganhoPorProduto;
 	}
 }
