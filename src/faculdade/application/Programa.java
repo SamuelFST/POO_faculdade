@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import faculdade.model.entities.Cliente;
 import faculdade.model.entities.Fornecedor;
+import faculdade.model.entities.Funcionario;
 import faculdade.model.entities.Produto;
 import faculdade.model.services.GooglepayService;
 import faculdade.model.services.PagamentoService;
@@ -24,10 +25,11 @@ public class Programa {
 		Scanner sc = new Scanner(System.in);
 		Produto produto = new Produto();
 		Fornecedor fornecedor = new Fornecedor();
+		Funcionario funcionario = new Funcionario();
 		PagamentoService pagamento = null;
 
 		try {
-			menu(sc, produto, fornecedor, pagamento);
+			menu(sc, produto, fornecedor, funcionario, pagamento);
 		} 
 		catch (RuntimeException e) {
 			System.out.println("Erro inesperado");
@@ -37,7 +39,7 @@ public class Programa {
 		}
 	}
 
-	public static void menu(Scanner sc, Produto produto, Fornecedor fornecedor, PagamentoService pagamento) throws ParseException {
+	public static void menu(Scanner sc, Produto produto, Fornecedor fornecedor, Funcionario funcionario, PagamentoService pagamento) throws ParseException {
 		int gerarID = 1;
 		int opcao = 0;
 		
@@ -75,7 +77,13 @@ public class Programa {
 					Double preco = sc.nextDouble();
 					System.out.print("Quantidade disponivel: ");
 					int quantidade = sc.nextInt();
-					Produto prod = new Produto(fornecedor, gerarID, nomeProduto, preco, quantidade);
+					sc.nextLine();
+					System.out.print("Nome do funcionario responsavel pelo produto: ");
+					String nomeFuncionario = sc.nextLine().toUpperCase();
+					System.out.print("Valor que o funcionario vai receber por produto vendido: ");
+					double ganhoPorProduto = sc.nextDouble();
+					funcionario = new Funcionario(nomeFuncionario, ganhoPorProduto);
+					Produto prod = new Produto(fornecedor, funcionario, gerarID, nomeProduto, preco, quantidade);
 					produto.adicionarProduto(prod);
 					gerarID++;
 				}
@@ -99,6 +107,7 @@ public class Programa {
 					System.out.println("----------------------------------------------------------------------------");
 					System.out.println("Fornecedor: " + produtos.getFornecedor().getRazaoSocial() + " - CNPJ " + produtos.getFornecedor().getCnpj()
 							+ " - TEL " + produtos.getFornecedor().getTelefone());
+					System.out.println("Funcionario responsavel pelo produto: "+produtos.getFuncionario().getNome());
 					System.out.println(produtos);
 					System.out.println("----------------------------------------------------------------------------");
 				}
@@ -136,12 +145,15 @@ public class Programa {
 								+ buscaID.getNome() + "!");
 						System.out.println("\n***************************************");
 						System.out.println("Lista de compra: ");
-						System.out.println(buscaID.getNome() + ", " + quantidadeCompra + " unidades, total: "
+						System.out.println(buscaID.getNome() + ", " + quantidadeCompra + " unidades, total: R$ "
 								+ pagamento.taxaPagamento(buscaID.valorTotal(quantidadeCompra)));
 						System.out.println("---------------------------------------");
 						System.out.println("Compra realizada em: " + sdf2.format(new Date()));
-						System.out.println("Cashback ganho com a compra: "+String.format("%.2f", pagamento.calcularCashback(buscaID.valorTotal(quantidadeCompra))));
+						System.out.println("Cashback ganho com a compra: R$ "+String.format("%.2f", pagamento.calcularCashback(buscaID.valorTotal(quantidadeCompra))));
 						System.out.println("Cliente: " + cliente.getNome() + ", CPF Num. " + cliente.getCpf());
+						System.out.println("---------------------------------------");
+						System.out.println("O vendedor "+buscaID.getFuncionario().getNome() +" recebeu uma comissao \nde R$ " +(buscaID.getFuncionario().getGanhoPorProduto() * quantidadeCompra)
+								+" por essa venda");
 						System.out.println("***************************************");
 						produto.atualizarEstoque(buscaID, quantidadeCompra);
 					}
