@@ -1,6 +1,15 @@
 package faculdade.model.services;
 
 public interface PagamentoService {
-	Double taxaPagamento(Double quantia);
-	Double calcularCashback(Double quantia);
+	
+	Double getTaxaPagamento();
+	Double getPorcentagemCashback();
+	
+	default Double taxaPagamento(Double quantia) {
+		return quantia + getTaxaPagamento();
+	}
+	
+	default Double calcularCashback(Double quantia) {
+		return quantia * getPorcentagemCashback();
+	}
 }
