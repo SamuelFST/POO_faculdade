@@ -102,64 +102,71 @@ public class Programa {
 				Date dataNascimento = sdf.parse(sc.nextLine());
 				Cliente cliente = new Cliente(nome, cpf, dataNascimento);
 
-				System.out.println("\nProdutos disponiveis para compra: ");
-				for (Produto produtos : produto.getListaProduto()) {
-					System.out.println("----------------------------------------------------------------------------");
-					System.out.println("Fornecedor: " + produtos.getFornecedor().getRazaoSocial() + " - CNPJ " + produtos.getFornecedor().getCnpj()
-							+ " - TEL " + produtos.getFornecedor().getTelefone());
-					System.out.println("Funcionario responsavel pelo produto: "+produtos.getFuncionario().getNome());
-					System.out.println(produtos);
-					System.out.println("----------------------------------------------------------------------------");
-				}
-
-				System.out.print("\nDigite a ID do produto que voce deseja comprar: ");
-				int procuraID = sc.nextInt();
-				System.out.print("Digite a quantidade de unidades para comprar: ");
-				int quantidadeCompra = sc.nextInt();
-				Produto buscaID = Produto.buscaProduto(produto.getListaProduto(), procuraID);
-
-				if (buscaID != null) {
-					if (quantidadeCompra > buscaID.getQuantidade()) {
-						System.out.println("Quantidade acima do disponivel para compra, digite um valor menor.");
-					} else {
-						System.out.println("\nEscolha uma opcao de pagamento: ");
-						System.out.println("1 - PayPal (Taxa de R$20 e cashback de 5%)");
-						System.out.println("2 - PicPay (Taxa de R$50 e cashback de 7%)");
-						System.out.println("3 - GooglePay (Taxa de R$70 e cashback de 9%)");
-						int opcaoPagamento = sc.nextInt();
-						if(opcaoPagamento == 1) {
-							pagamento = new PaypalService();
-						}
-						else if(opcaoPagamento == 2) {
-							pagamento = new PicpayService();
-						}
-						else if(opcaoPagamento == 3) {
-							pagamento = new GooglepayService();
-						}
-						else {
-							System.out.println("Opcao de pagamento nao reconhecida");
-							break;
-						}
-						
-						System.out.println("\nVoce comprou " + quantidadeCompra + " unidades do produto "
-								+ buscaID.getNome() + "!");
-						System.out.println("\n***************************************");
-						System.out.println("Lista de compra: ");
-						System.out.println(buscaID.getNome() + ", " + quantidadeCompra + " unidades, total: R$ "
-								+ pagamento.taxaPagamento(buscaID.valorTotal(quantidadeCompra)));
-						System.out.println("---------------------------------------");
-						System.out.println("Compra realizada em: " + sdf2.format(new Date()));
-						System.out.println("Cashback ganho com a compra: R$ "+String.format("%.2f", pagamento.calcularCashback(buscaID.valorTotal(quantidadeCompra))));
-						System.out.println("Cliente: " + cliente.getNome() + ", CPF Num. " + cliente.getCpf());
-						System.out.println("---------------------------------------");
-						System.out.println("O vendedor "+buscaID.getFuncionario().getNome() +" recebeu uma comissao \nde R$ " +(buscaID.getFuncionario().getGanhoPorProduto() * quantidadeCompra)
-								+" por essa venda");
-						System.out.println("***************************************");
-						produto.atualizarEstoque(buscaID, quantidadeCompra);
+				if (produto.getListaProduto().isEmpty()) {
+					System.out.println("Nao ha produtos cadastrados no momento, entre como fornecedor para cadastrar");
+				} else {
+					System.out.println("\nProdutos disponiveis para compra: ");
+					for (Produto produtos : produto.getListaProduto()) {
+						System.out.println(
+								"----------------------------------------------------------------------------");
+						System.out.println("Fornecedor: " + produtos.getFornecedor().getRazaoSocial() + " - CNPJ "
+								+ produtos.getFornecedor().getCnpj() + " - TEL "
+								+ produtos.getFornecedor().getTelefone());
+						System.out.println(
+								"Funcionario responsavel pelo produto: " + produtos.getFuncionario().getNome());
+						System.out.println(produtos);
+						System.out.println(
+								"----------------------------------------------------------------------------");
 					}
-				} 
-				else if (buscaID == null) {
-					System.out.println("ID invalido, esse ID nao esta associado a um produto.");
+
+					System.out.print("\nDigite a ID do produto que voce deseja comprar: ");
+					int procuraID = sc.nextInt();
+					System.out.print("Digite a quantidade de unidades para comprar: ");
+					int quantidadeCompra = sc.nextInt();
+					Produto buscaID = Produto.buscaProduto(produto.getListaProduto(), procuraID);
+
+					if (buscaID != null) {
+						if (quantidadeCompra > buscaID.getQuantidade()) {
+							System.out.println("Quantidade acima do disponivel para compra, digite um valor menor.");
+						} else {
+							System.out.println("\nEscolha uma opcao de pagamento: ");
+							System.out.println("1 - PayPal (Taxa de R$20 e cashback de 5%)");
+							System.out.println("2 - PicPay (Taxa de R$50 e cashback de 7%)");
+							System.out.println("3 - GooglePay (Taxa de R$70 e cashback de 9%)");
+							int opcaoPagamento = sc.nextInt();
+							if (opcaoPagamento == 1) {
+								pagamento = new PaypalService();
+							} else if (opcaoPagamento == 2) {
+								pagamento = new PicpayService();
+							} else if (opcaoPagamento == 3) {
+								pagamento = new GooglepayService();
+							} else {
+								System.out.println("Opcao de pagamento nao reconhecida");
+								break;
+							}
+
+							System.out.println("\nVoce comprou " + quantidadeCompra + " unidades do produto "
+									+ buscaID.getNome() + "!");
+							System.out.println("\n***************************************");
+							System.out.println("Lista de compra: ");
+							System.out.println(buscaID.getNome() + ", " + quantidadeCompra + " unidades, total: R$ "
+									+ pagamento.taxaPagamento(buscaID.valorTotal(quantidadeCompra)));
+							System.out.println("---------------------------------------");
+							System.out.println("Compra realizada em: " + sdf2.format(new Date()));
+							System.out.println("Cashback ganho com a compra: R$ " + String.format("%.2f",
+									pagamento.calcularCashback(buscaID.valorTotal(quantidadeCompra))));
+							System.out.println("Cliente: " + cliente.getNome() + ", CPF Num. " + cliente.getCpf());
+							System.out.println("---------------------------------------");
+							System.out.println("O(a) vendedor(a) " + buscaID.getFuncionario().getNome()
+									+ " recebeu uma comissao \nde R$ "
+									+ (buscaID.getFuncionario().getGanhoPorProduto() * quantidadeCompra)
+									+ " por essa venda");
+							System.out.println("***************************************");
+							produto.atualizarEstoque(buscaID, quantidadeCompra);
+						}
+					} else if (buscaID == null) {
+						System.out.println("ID invalido, esse ID nao esta associado a um produto.");
+					}
 				}
 				break;
 
